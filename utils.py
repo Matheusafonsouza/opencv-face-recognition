@@ -41,6 +41,7 @@ class SimpleFacerec:
         print("Encoding images loaded")
 
     def detect_known_faces(self, frame):
+        # Resize image for better detection
         small_frame = cv2.resize(
             frame, (0, 0), fx=self.frame_resizing, fy=self.frame_resizing)
 
@@ -57,11 +58,6 @@ class SimpleFacerec:
             matches = face_recognition.compare_faces(
                 self.known_face_encodings, face_encoding)
             name = "Unknown"
-
-            # # If a match was found in known_face_encodings, just use the first one.
-            # if True in matches:
-            #     first_match_index = matches.index(True)
-            #     name = known_face_names[first_match_index]
 
             # Or instead, use the known face with the smallest distance to the new face
             face_distances = face_recognition.face_distance(
